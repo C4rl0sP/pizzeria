@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Usuario implements Serializable {
@@ -20,21 +23,27 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "La pizza debe tener tener ingredientes")
+    @NotNull(message = "El usuario debe tener tener ingredientes")
+    @NotEmpty
+    @Size(min = 4, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String nombre;
 
     @NotNull(message = "La pizza debe tener tener ingredientes")
+    @Size(min = 2, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String apellido1;
 
+    @Size(min = 2, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String apellido2;
 
     @NotNull(message = "La pizza debe tener tener ingredientes")
+    @Size(min = 2, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String email;
 
     @NotNull(message = "La pizza debe tener tener ingredientes")
+    @Size(min = 2, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String password;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "comentario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "usuario")
     private List<Comentario> comentarios;
 
     public Usuario() {

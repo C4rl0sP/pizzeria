@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -30,7 +30,7 @@ public class Comentario implements Serializable {
     @NotNull(message = "El comentario tiene que tener un texto")
     private LocalDate fecha;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuario")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @NotNull(message = "El comentario tiene que tener un usuario")
     private Usuario usuario;
 

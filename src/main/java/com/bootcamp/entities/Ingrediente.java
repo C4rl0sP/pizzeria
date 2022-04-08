@@ -5,10 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -27,8 +28,8 @@ public class Ingrediente implements Serializable {
     @NotNull(message = "El ingrediente tiene que tener un precio")
     private double precio;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private List<Pizza> pizzas;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Pizza> pizza;
 
     public Ingrediente() {
         super();
@@ -65,12 +66,12 @@ public class Ingrediente implements Serializable {
         this.precio = precio;
     }
 
-    public List<Pizza> getPizzas() {
-        return pizzas;
+    public List<Pizza> getPizza() {
+        return pizza;
     }
 
-    public void setPizzas(List<Pizza> pizzas) {
-        this.pizzas = pizzas;
+    public void setPizza(List<Pizza> pizza) {
+        this.pizza = pizza;
     }
 
 }

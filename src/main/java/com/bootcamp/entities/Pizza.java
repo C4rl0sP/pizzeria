@@ -25,12 +25,12 @@ public class Pizza implements Serializable {
 
     private String foto;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "ingrediente")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "pizza")
     @NotNull(message = "La pizza debe tener tener ingredientes")
     private List<Ingrediente> ingredientes;
 
     @NotNull(message = "La pizza tiene que tener un comentario")
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "pizza")
     private List<Comentario> comentarios;
 
     @NotNull(message = "La pizza debe tener un precio")
