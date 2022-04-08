@@ -1,6 +1,7 @@
 package com.bootcamp.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,11 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pizza implements Serializable {
+
+    private static final long serialVersionUID = 4L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +24,14 @@ public class Pizza implements Serializable {
 
     private String foto;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "ingrediente")
     @NotNull(message = "La pizza debe tener tener ingredientes")
-    private String ingredientes;
+    private List<Ingrediente> ingredientes;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    // @NotNull(message = "El producto tiene que tener una presentación")
-    private String comentarios;
+    @NotNull(message = "La pizza tiene que tener un comentario")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private List<Comentario> comentarios;
 
-    // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @NotNull(message = "La pizza debe tener un precio")
     private double precio;
 
@@ -36,7 +39,10 @@ public class Pizza implements Serializable {
         super();
     }
 
-    public Pizza(long id, String foto, String ingredientes, String comentarios, double precio) {
+    public Pizza(long id, String foto,
+            @NotNull(message = "La pizza debe tener tener ingredientes") List<Ingrediente> ingredientes,
+            @NotNull(message = "La pizza tiene que tener un comentario") List<Comentario> comentarios,
+            @NotNull(message = "La pizza debe tener un precio") double precio) {
         this.id = id;
         this.foto = foto;
         this.ingredientes = ingredientes;
@@ -60,20 +66,20 @@ public class Pizza implements Serializable {
         this.foto = foto;
     }
 
-    public String getIngredientes() {
+    public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(String ingredientes) {
+    public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
-    public String getComentarios() {
+    public List<Comentario> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(String comentario) {
-        this.comentarios = comentario;
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public double getPrecio() {
