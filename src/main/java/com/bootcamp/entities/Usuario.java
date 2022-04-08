@@ -1,11 +1,14 @@
 package com.bootcamp.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -29,18 +32,26 @@ public class Usuario implements Serializable {
     private String email;
 
     @NotNull(message = "La pizza debe tener tener ingredientes")
-    private String contraseña;
+    private String password;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "comentario")
+    private List<Comentario> comentarios;
 
     public Usuario() {
     }
 
-    public Usuario(long id, String nombre, String apellido1, String apellido2, String email, String contraseña) {
+    public Usuario(long id, @NotNull(message = "La pizza debe tener tener ingredientes") String nombre,
+            @NotNull(message = "La pizza debe tener tener ingredientes") String apellido1, String apellido2,
+            @NotNull(message = "La pizza debe tener tener ingredientes") String email,
+            @NotNull(message = "La pizza debe tener tener ingredientes") String password,
+            List<Comentario> comentarios) {
         this.id = id;
         this.nombre = nombre;
         this.apellido1 = apellido1;
-        this.apellido1 = apellido2;
+        this.apellido2 = apellido2;
         this.email = email;
-        this.contraseña = contraseña;
+        this.password = password;
+        this.comentarios = comentarios;
     }
 
     public long getId() {
@@ -83,12 +94,20 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
 }
