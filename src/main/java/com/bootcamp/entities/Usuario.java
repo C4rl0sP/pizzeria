@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
     @Size(min = 2, max = 255, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "usuario")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "usuario")
     private List<Comentario> comentarios;
 
     public Usuario() {

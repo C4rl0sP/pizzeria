@@ -30,7 +30,7 @@ public class Comentario implements Serializable {
     @NotNull(message = "El comentario tiene que tener un texto")
     private LocalDate fecha;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @NotNull(message = "El comentario tiene que tener un usuario")
     private Usuario usuario;
 
