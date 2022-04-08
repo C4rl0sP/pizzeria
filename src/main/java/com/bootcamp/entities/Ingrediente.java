@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -27,7 +27,7 @@ public class Ingrediente implements Serializable {
     @NotNull(message = "El ingrediente tiene que tener un precio")
     private double precio;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private List<Pizza> pizzas;
 
     public Ingrediente() {

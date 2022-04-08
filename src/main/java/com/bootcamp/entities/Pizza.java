@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -24,12 +25,12 @@ public class Pizza implements Serializable {
 
     private String foto;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "ingrediente")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "ingrediente")
     @NotNull(message = "La pizza debe tener tener ingredientes")
     private List<Ingrediente> ingredientes;
 
     @NotNull(message = "La pizza tiene que tener un comentario")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Comentario> comentarios;
 
     @NotNull(message = "La pizza debe tener un precio")
