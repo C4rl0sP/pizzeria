@@ -22,13 +22,12 @@ public class Ingrediente implements Serializable {
     private long id;
 
     @NotNull(message = "El ingrediente tiene que tener una pizza")
-
     private String nombre;
 
     @NotNull(message = "El ingrediente tiene que tener un precio")
     private double precio;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Pizza> pizza;
 
     public Ingrediente() {

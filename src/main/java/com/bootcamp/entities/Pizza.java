@@ -10,9 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Pizza implements Serializable {
@@ -25,7 +26,11 @@ public class Pizza implements Serializable {
 
     private String foto;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "pizza")
+    @NotNull(message = "La pizza debe tener tener ingredientes")
+    @Size(min = 4, max = 25, message = "El campo nombre tiene que tener entre 4 y 255 caracteres")
+    private String nombre;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "pizza")
     @NotNull(message = "La pizza debe tener tener ingredientes")
     private List<Ingrediente> ingredientes;
 
